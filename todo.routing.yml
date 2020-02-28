@@ -1,0 +1,32 @@
+
+todo.default_controller_hello:
+  path: '/todo/hello/{name}'
+  defaults:
+    _controller: '\Drupal\todo\Controller\DefaultController::hello'
+    _title: 'index'
+  requirements:
+    _permission: 'access content'
+todo.tasklist:
+  path: '/todo/tasklist'
+  defaults:
+    _controller: '\Drupal\todo\Controller\DefaultController::tasklist'
+    _title: 'Get List'
+  methods:  [GET]
+  requirements:
+    _permission: 'access content'
+todo.taskremove:
+  path: '/todo/taskremove'
+  defaults:
+    _controller: '\Drupal\todo\Controller\DefaultController::taskremove'
+    _title: 'Task remove'
+  methods:  [POST]
+  requirements:
+    _permission: 'access content'
+todo.taskadd:
+  path: '/todo/taskadd'
+  defaults:
+    _controller: '\Drupal\todo\Controller\DefaultController::taskadd'
+    _title: 'Task Add'
+  methods:  [POST]
+  requirements:
+    _permission: 'access content'            

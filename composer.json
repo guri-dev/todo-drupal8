@@ -1,0 +1,13 @@
+{
+    "name": "todo",
+    "type": "drupal-module",
+    "description": "Todo list custom module for drupal 8",
+    "keywords": [
+    ],
+    "homepage": "https://www.drupal.org/project/todo",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/todo",
+        "source": "http://cgit.drupalcode.org/todo",
+    },
+}

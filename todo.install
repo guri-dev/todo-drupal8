@@ -1,0 +1,36 @@
+<?php 
+function todo_schema(){
+    $schema['task'] = array(
+        'description' => 'The table for storing the tasks',
+        'fields' => array(
+            'id' => array(
+                'description' => 'The primary identifier for task',
+                'type' => 'serial',
+                'not null' => TRUE,
+                'unsigned' => TRUE,
+            ),
+            'name' => array(
+                'description' => 'task name.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'created_date' => array(
+                'description' => 'created date time(yyyy-mm-dd H:i:s).',
+                'type' => 'varchar',
+                'mysql_type' => 'DATETIME',
+                'not null' => FALSE,
+            ),
+            'status' => array(
+                'description' => 'task status(1=Unblock,0=Block).',
+                'type' => 'int',
+                'length' => 1,
+                'not null' => TRUE,
+                'default' => 1,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+    return $schema;
+}

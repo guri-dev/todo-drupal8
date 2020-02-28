@@ -1,0 +1,13 @@
+todo:
+  version: 1.x
+  css:
+    theme:
+      node_modules/todomvc-common/base.css: {}
+      node_modules/todomvc-common/index.css: {}
+  js:
+    js/custom.js: {}
+    node_modules/todomvc-common/base.js: {}
+    node_modules/jquery/dist/jquery.js: {}
+    node_modules/handlebars/dist/handlebars.js: {}    
+    node_modules/director/build/director.js: {}
+    js/app.js: {}

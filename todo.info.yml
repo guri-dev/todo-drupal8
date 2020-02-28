@@ -1,0 +1,5 @@
+name: 'todo'
+type: module
+description: 'Todo list custom module for drupal 8'
+core: 8.x
+package: 'Custom'

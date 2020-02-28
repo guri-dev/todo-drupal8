@@ -1,0 +1,57 @@
+{{ attach_library('todo/todo') }}
+<!-- Let's output the three variables passed to this template -->
+
+
+<section class="todoapp">
+			<header class="header">
+				<input class="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			<section class="main">
+				<input id="toggle-all" class="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+                    {% for item in tasklist %}
+                    {% if item.status == true %}
+                    <li class="completed task_{{ item.id }}" data-id="{{ item.id }}">
+                    {% else %}
+                    <li data-id="{{ item.id }} ">
+                    {% endif %}
+                        <div class="view">
+                            <input class="toggle" type="checkbox">
+                            <label>{{ item.name }} </label>
+                            <button class="destroy" id="{{ item.id }} "></button>
+                        </div>
+                        <input class="edit" value="{{ item.name }} ">
+                    </li>
+                    {% endfor %}
+                </ul>
+			</section>
+			<footer class="footer"></footer>
+		</section>
+		<script id="todo-template" type="text/x-handlebars-template">
+			
+			<li class="completed" data-id="{{id}}">
+				<div class="view">
+					<input class="toggle" type="checkbox" checked>
+					<label>{{title}}</label>
+					<button class="destroy"></button>
+				</div>
+				<input class="edit" value="{{title}}">
+			</li>
+		
+		</script>
+		<script id="footer-template" type="text/x-handlebars-template">
+			<span class="todo-count"><strong>{{activeTodoCount}}</strong> {{tasklist|length}} left</span>
+			<ul class="filters">
+				<li>
+					<a class="selected" href="#/all">All</a>
+				</li>
+				<li>
+					<a class="selected" href="#/active">Active</a>
+				</li>
+				<li>
+					<a class="selected" href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<button class="clear-completed">Clear completed</button>
+		</script>
