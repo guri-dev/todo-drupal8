@@ -67,7 +67,7 @@ jQuery(function ($) {
 		render: function () {
 			var todos = this.getFilteredTodos();
 			var jsonRes = '';
-			$.get( "/drupal/todo/tasklist/", function( data ) {
+			$.get( "/drupal/index.php/todo/tasklist/", function( data ) {
 				jsonRes = data;
 			  }, "json" );
 			
@@ -75,23 +75,23 @@ jQuery(function ($) {
 				var dynamic_html = '';
 					if(this.completed == true)
 					{
-						dynamic_html += '<li class="completed" data-id='+ this.id +'>';
+						dynamic_html += '<li class="completed task_'+this.id+'" data-id='+this.id+'>';
 					}
 					else
 					{
-						dynamic_html += '<li data-id='+ this.id +'>';
+						dynamic_html += '<li class="task_'+this.id+'" data-id='+this.id+'>';
 					}
 					
 					dynamic_html += '<div class="view">';
 					dynamic_html += '<input class="toggle" type="checkbox">';
 					dynamic_html += '<label>'+ this.name +'</label>';
-					dynamic_html += '<button class="destroy"></button>';					
+					dynamic_html += '<button class="destroy" id="'+this.id+'"></button>';					
 					dynamic_html += '</div>';
-					dynamic_html += '<input class="edit" value="'+ this.name +'">';
+					dynamic_html += '<input class="edit" value="'+ this.name+'">';
 					dynamic_html += '</li>';
 				$('.todo-list').append(dynamic_html);
 			});  
-			$('.main').toggle(todos.length > 0);
+			//$('.main').toggle(todos.length > 0);
 			$('.toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
 			$('.new-todo').focus();
@@ -107,7 +107,7 @@ jQuery(function ($) {
 				filter: this.filter
 			});
 
-			$('.footer').toggle(todoCount > 0).html(template);
+			$('.footer').html(template);
 		},
 		toggleAll: function (e) {
 			var isChecked = $(e.target).prop('checked');
@@ -164,7 +164,7 @@ jQuery(function ($) {
 				return;
 			}
 
-			$.post( "/drupal/todo/taskadd/", { name: val })
+			$.post( "/drupal/index.php/todo/taskadd/", { name: val })
 			  .done(function( data ) {
 				  console.log(data);
 				$('.todo-list').html('');  
@@ -172,26 +172,27 @@ jQuery(function ($) {
 					var dynamic_html = '';
 						if(this.completed === true)
 						{
-							dynamic_html += '<li class="completed" data-id='+ this.id +'>';
+							dynamic_html += '<li class="completed task_'+this.id+'" data-id='+this.id+'>';
 						}
 						else
 						{
-							dynamic_html += '<li data-id='+ this.id +'>';
+							dynamic_html += '<li class="task_'+this.id+'" data-id='+this.id+'>';
 						}
 						
 						dynamic_html += '<div class="view">';
 						dynamic_html += '<input class="toggle" type="checkbox">';
 						dynamic_html += '<label>'+ this.name +'</label>';
-						dynamic_html += '<button class="destroy"></button>';					
+						dynamic_html += '<button class="destroy" id="'+this.id+'"></button>';					
 						dynamic_html += '</div>';
 						dynamic_html += '<input class="edit" value="'+ this.name +'">';
 						dynamic_html += '</li>';
 					$('.todo-list').append(dynamic_html);
 				});
-				
+				$('.todo-count').html($('.todo-list li').length+' left');	
 			}, "json");
 
 			$input.val('');
+			
 			
 		},
 		toggle: function (e) {
@@ -233,10 +234,12 @@ jQuery(function ($) {
 			this.render();
 		},
 		destroy: function (e) {
-			$.post( "/drupal/todo/taskremove/", { id: e.target.id })
+			$.post( "/drupal/index.php/todo/taskremove/", { id: e.target.id })
 			  .done(function( data ) {
 				$('.task_'+data.id).remove();
+				$('.todo-count').html($('.todo-list li').length+' left');
 			}, "json");  
+			
 			this.render();
 		}
 	};
