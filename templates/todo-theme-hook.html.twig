@@ -10,14 +10,16 @@
 				<input id="toggle-all" class="toggle-all" type="checkbox">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list">
+					{% set count = 0 %}
                     {% for item in tasklist %}
-                    {% if item.status == true %}
-                    <li class="completed task_{{ item.id }}" data-id="{{ item.id }}">
-                    {% else %}
-                    <li data-id="{{ item.id }}" class="task_{{ item.id }}">
-                    {% endif %}
+						{% if item.status == true %}
+							<li class="completed task_{{ item.id }}" data-id="{{ item.id }}">
+						{% else %}
+							{%  set count = count + 1 %}
+							<li data-id="{{ item.id }}" class="task_{{ item.id }}">
+						{% endif %}
                         <div class="view">
-                            <input class="toggle" type="checkbox">
+                            <input class="toggle" type="checkbox" {% if item.status == true %} checked {% endif %}>
                             <label>{{ item.name }} </label>
                             <button class="destroy" id="{{ item.id }} "></button>
                         </div>
@@ -41,7 +43,7 @@
 		
 		</script>
 		<script id="footer-template" type="text/x-handlebars-template">
-			<span class="todo-count"><strong>{{activeTodoCount}}</strong> {{tasklist|length}} left</span>
+			<span class="todo-count"><strong>{{activeTodoCount}}</strong> {{count}} left</span>
 			<ul class="filters">
 				<li>
 					<a class="selected" href="#/all">All</a>
