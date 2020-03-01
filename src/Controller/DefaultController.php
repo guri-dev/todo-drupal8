@@ -34,13 +34,8 @@ class DefaultController extends ControllerBase {
         $tasklist[] = $row;
       }
     }
-
-    //print_r($myArray);
-    //print_r($tasks); die; 
     return array(
-      //Your theme hook name
       '#theme' => 'todo_theme_hook',      
-      //Your variables
       '#variable2' => $myNumber,
       '#tasklist' => $tasklist,
     );
@@ -85,6 +80,17 @@ class DefaultController extends ControllerBase {
     return new JsonResponse( $tasklist );
     exit;
   }
+
+  public function taskcomplete(Request $request) {
+    $id = trim($request->request->get('id'));
+    $status = trim($request->request->get('status'));
+    $sql = "UPDATE task SET status=$status WHERE id=".$id;
+    db_query($sql);    
+    return new JsonResponse(array('id' => $id,'status' => $status));
+    exit;
+  }
+
+  
   
 
 }

@@ -58,7 +58,7 @@ jQuery(function ($) {
 			$('.toggle-all').on('change', this.toggleAll.bind(this));
 			$('.footer').on('click', '.clear-completed', this.destroyCompleted.bind(this));
 			$('.todo-list')
-				//.on('change', '.toggle', this.toggle.bind(this))
+				.on('change', '.toggle', this.toggle.bind(this))
 				.on('dblclick', 'label', this.editingMode.bind(this))
 				.on('keyup', '.edit', this.editKeyup.bind(this))
 				.on('focusout', '.edit', this.update.bind(this))
@@ -196,9 +196,29 @@ jQuery(function ($) {
 			
 		},
 		toggle: function (e) {
-			var i = this.getIndexFromEl(e.target);
-			this.todos[i].completed = !this.todos[i].completed;
-			//this.render();
+			
+			if($(e.target).closest('li').hasClass('completed') == true)
+			{
+				var completed = 0;
+			}
+			else
+			{
+				completed = 1;
+			}
+
+			$.post( "/drupal/index.php/todo/taskcomplete/", { id: $(e.target).closest('li').data('id'), status:completed })
+			  .done(function( data ) {
+				if(data.status == 1)
+				{
+					$('li.task_'+data.id).addClass('completed');
+				}
+				else
+				{
+					$('li.task_'+data.id).removeClass('completed');
+				}  
+				
+				$('.todo-count').html($('.todo-list li:not([completed])').length+' left');
+			}, "json");
 		},
 		editingMode: function (e) {
 			var $input = $(e.target).closest('li').addClass('editing').find('.edit');

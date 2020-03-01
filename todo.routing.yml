@@ -29,4 +29,12 @@ todo.taskadd:
     _title: 'Task Add'
   methods:  [POST]
   requirements:
-    _permission: 'access content'            
+    _permission: 'access content'
+todo.taskcomplete:
+  path: '/todo/taskcomplete'
+  defaults:
+    _controller: '\Drupal\todo\Controller\DefaultController::taskcomplete'
+    _title: 'Task Complete'
+  methods:  [POST]
+  requirements:
+    _permission: 'access content'                
