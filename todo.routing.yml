@@ -37,4 +37,12 @@ todo.taskcomplete:
     _title: 'Task Complete'
   methods:  [POST]
   requirements:
-    _permission: 'access content'                
+    _permission: 'access content'
+todo.taskupdate:
+  path: '/todo/taskupdate'
+  defaults:
+    _controller: '\Drupal\todo\Controller\DefaultController::taskupdate'
+    _title: 'Task update'
+  methods:  [POST]
+  requirements:
+    _permission: 'access content'                    

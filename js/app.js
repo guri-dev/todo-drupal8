@@ -241,15 +241,17 @@ jQuery(function ($) {
 			var el = e.target;
 			var $el = $(el);
 			var val = $el.val().trim();
-			
 			if ($el.data('abort')) {
 				$el.data('abort', false);
 			} else if (!val) {
 				this.destroy(e);
 				return;
-			} else {
-				this.todos[this.getIndexFromEl(el)].title = val;
 			}
+
+			$.post( "/drupal/index.php/todo/taskupdate/", { id: $(e.target).closest('li').data('id'),name:val })
+			  .done(function( data ) {
+				$('li.task_'+data.id+' label').html(data.name);
+			}, "json");
 
 			this.render();
 		},

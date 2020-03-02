@@ -90,6 +90,16 @@ class DefaultController extends ControllerBase {
     exit;
   }
 
+  public function taskupdate(Request $request) {
+    $id = trim($request->request->get('id'));
+    $name = trim($request->request->get('name'));
+
+    $sql = "UPDATE task SET name='$name' WHERE id=".$id;
+    db_query($sql);    
+    return new JsonResponse(array('id' => $id,'name' => $name));
+    exit;
+  }  
+
   
   
 
