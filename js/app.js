@@ -250,6 +250,7 @@ jQuery(function ($) {
 
 			$.post( "/drupal/index.php/todo/taskupdate/", { id: $(e.target).closest('li').data('id'),name:val })
 			  .done(function( data ) {
+				$('li.task_'+data.id+' input').hide();  
 				$('li.task_'+data.id+' label').html(data.name);
 			}, "json");
 
