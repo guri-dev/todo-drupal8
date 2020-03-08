@@ -98,7 +98,27 @@ class DefaultController extends ControllerBase {
     db_query($sql);    
     return new JsonResponse(array('id' => $id,'name' => $name));
     exit;
+  }
+
+  public function destroycompleted(Request $request) {
+    $taskIds = substr(trim($request->request->get('taskIds')),0,-1);
+    $action = trim($request->request->get('action'));
+    if($action == 'removecompleted')
+    {
+      $sql = "DELETE from task  WHERE id IN (".$taskIds.")";
+      db_query($sql);
+      return new JsonResponse(array('taskIds' => $taskIds));
+      exit;
+    } 
+    else
+    {
+      return new JsonResponse(array('msg' => 'There is an error'));
+      exit;
+    } 
+    
   }  
+
+  
 
   
   

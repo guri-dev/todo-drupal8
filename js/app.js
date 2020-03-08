@@ -140,10 +140,17 @@ jQuery(function ($) {
 			return this.todos;
 		},
 		destroyCompleted: function () {
+			let taskId = '';
 			$('li.completed').each(function(element) {
-				console.log($(this).data('id'));
+				taskId += $(this).data('id')+",";
 			});
-			//this.render();
+			$.post( "/drupal/index.php/todo/destroycompleted/", { taskIds:taskId,action:'removecompleted' })
+			  .done(function( data ) {
+				//$('li.task_'+data.id+' input').hide();  
+				//$('li.task_'+data.id).removeClass('editing');  
+				//$('li.task_'+data.id+' label').html(data.name);
+			}, "json");
+			
 		},
 		// accepts an element from inside the `.item` div and
 		// returns the corresponding index in the `todos` array

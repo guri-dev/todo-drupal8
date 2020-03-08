@@ -45,4 +45,12 @@ todo.taskupdate:
     _title: 'Task update'
   methods:  [POST]
   requirements:
-    _permission: 'access content'                    
+    _permission: 'access content'
+todo.destroycompleted:
+  path: '/todo/destroycompleted'
+  defaults:
+    _controller: '\Drupal\todo\Controller\DefaultController::destroycompleted'
+    _title: 'Task remove completed'
+  methods:  [POST]
+  requirements:
+    _permission: 'access content'                        
