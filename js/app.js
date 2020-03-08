@@ -140,8 +140,10 @@ jQuery(function ($) {
 			return this.todos;
 		},
 		destroyCompleted: function () {
-			this.todos = this.getActiveTodos();
-			this.render();
+			$('li.completed').each(function(element) {
+				console.log($(this).data('id'));
+			});
+			//this.render();
 		},
 		// accepts an element from inside the `.item` div and
 		// returns the corresponding index in the `todos` array
