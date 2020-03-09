@@ -146,9 +146,9 @@ jQuery(function ($) {
 			});
 			$.post( "/drupal/index.php/todo/destroycompleted/", { taskIds:taskId,action:'removecompleted' })
 			  .done(function( data ) {
-				//$('li.task_'+data.id+' input').hide();  
-				//$('li.task_'+data.id).removeClass('editing');  
-				//$('li.task_'+data.id+' label').html(data.name);
+				$.each(data.taskIds.split(","),function(index, value){
+					$('li.task_'+value).remove();
+				});				  
 			}, "json");
 			
 		},
